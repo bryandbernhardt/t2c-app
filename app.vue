@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout>
+  <NuxtLayout name="ionicapp">
     <NuxtPage />
   </NuxtLayout>
 </template>

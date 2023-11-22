@@ -1,6 +1,6 @@
 {
   "appId": "com.t2c",
-  "appName": "t2c-app",
+  "appName": "T2C",
   "webDir": ".output/public",
   "server": {
     "androidScheme": "https"
