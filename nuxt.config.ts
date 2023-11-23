@@ -7,5 +7,5 @@ export default defineNuxtConfig({
     '@ionic/core/css/structure.css',
     '@ionic/core/css/typography.css',
     '@ionic/core/css/ionic.bundle.css',
-  ]
+  ],
 })

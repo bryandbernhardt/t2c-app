@@ -1,6 +1,13 @@
 <template>
   <div class="dashboard-page">
     <h2>Gênero Vendido</h2>
+    <apexchart
+      ref="chart"
+      height="30%"
+      type="bar"
+      :options="chartOptions"
+      :series="series"
+    ></apexchart>
     <h2>Lucro Anual {{ getYear }}</h2>
     <BaseMenu />
   </div>
@@ -13,6 +20,29 @@ export default {
       const date = new Date()
       return date.getFullYear()
     },
+  },
+
+  data() {
+    return {
+      chartOptions: {
+        chart: {
+          id: "vuechart-example",
+        },
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        },
+      },
+      series: [
+        {
+          name: "masculino",
+          data: [30, 40, 35, 50, 49, 60, 70, 91],
+        },
+        {
+          name: "feminino",
+          data: [22, 69, 40, 67, 40, 55, 92, 123],
+        },
+      ],
+    }
   },
 }
 </script>
