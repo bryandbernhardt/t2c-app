@@ -11,7 +11,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "ionic:build": "npm run build",
-    "ionic:serve": "npm run dev"
+    "ionic:serve": "npm run dev",
+    "dev:android": "npm run generate && npx cap copy android && npx cap run android --target=Pixel_3_API_33  --external --no-build"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.1",

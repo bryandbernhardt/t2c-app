@@ -3,8 +3,8 @@
     <div class="base-menu-item" @click="navigateTo('/dashboard')">
       Dashboard
     </div>
-    <div class="base-menu-item" @click="navigateTo('/cadastro')">
-      Cadastro
+    <div class="base-menu-item" @click="navigateTo('/datas')">
+      Dados
     </div>
   </div>
 </template>
