@@ -13,12 +13,14 @@
           <th>Título</th>
           <th>Gênero</th>
           <th>Páginas</th>
+          <th>Preço</th>
         </tr>
         <tr v-for="livro in modalData">
           <td>{{ livro.id }}</td>
           <td>{{ livro.titulo }}</td>
           <td>{{ livro.genero }}</td>
           <td>{{ livro.paginas }}</td>
+          <td>{{ livro.preco?.toFixed(2) || '0.00' }}</td>
         </tr>
       </table>
     </div>

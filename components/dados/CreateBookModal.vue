@@ -6,7 +6,8 @@
     <form id="book-form" v-on:submit.prevent="createBook">
       <p>Título: <input type="text" required v-model="titulo"></p>
       <p>Gênero: <input type="text" required v-model="genero"></p>
-      <p>Páginas: <input type="number" v-model="paginas"></p>
+      <p>Páginas: <input type="number" required v-model="paginas"></p>
+      <p>Preço: <input type="number" step=".01" v-model="preco"></p>
     </form>
     <div class="create-book-btn"><button form="book-form" type="submit">CADASTRAR</button></div>
   </div>
@@ -22,6 +23,7 @@ export default {
       titulo: null,
       genero: null,
       paginas: null,
+      preco: null,
     }
   },
 
@@ -39,6 +41,7 @@ export default {
         genero: this.genero,
         paginas: this.paginas,
         cpf_comprador: this.customerCpf,
+        preco: this.preco
       };
 
       await bookService.create(book);

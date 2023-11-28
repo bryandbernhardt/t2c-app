@@ -6,9 +6,8 @@
     <form id="customer-form" v-on:submit.prevent="createCustomer">
       <p>CPF: <input type="cpf" required v-model="cpf"></p>
       <p>Nome: <input type="text" required v-model="name"></p>
-      <p>Gênero: <input type="text" v-model="genero"></p>
-      <p>Idade: <input type="number" v-model="idade"></p>
-      <p>Gasto Médio: <input type="number" v-model="gastoMedio"></p>
+      <p>Gênero: <input type="text" required v-model="genero"></p>
+      <p>Idade: <input type="number" required v-model="idade"></p>
     </form>
     <div class="btn-container"><button form="customer-form" type="submit">CADASTRAR</button></div>
   </div>

@@ -17,7 +17,7 @@
         <td>{{ data.idade }}</td>
         <td>{{ data.gasto_medio }}</td>
         <td class="options">
-          <button class="sells-btn" @click="openSellPage(data.sells[0], data.cpf)">Vendas</button>
+          <button class="sells-btn" @click="openSellPage(data, data.cpf)">Vendas</button>
           <button class="books-btn" @click="openBooksPage(data.books, data.cpf)">Livros</button>
         </td>
       </tr>
@@ -64,9 +64,9 @@ export default {
   },
 
   methods: {
-    openSellPage(vendas, customerCpf) {
-      if(vendas) {
-        this.modalData = vendas;
+    openSellPage(customerData, customerCpf) {
+      if(customerData) {
+        this.modalData = customerData;
         this.customerCpf = customerCpf;
         this.showSellsModal = true;
       }

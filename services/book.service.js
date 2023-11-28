@@ -8,6 +8,7 @@ export const bookService = {
       genero: book.genero,
       paginas: book.paginas,
       cpf_comprador: book.cpf_comprador,
+      preco: book.preco,
     }
 
     const { error } = await client
