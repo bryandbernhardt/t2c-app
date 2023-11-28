@@ -12,11 +12,13 @@
     "postinstall": "nuxt prepare",
     "ionic:build": "npm run build",
     "ionic:serve": "npm run dev",
-    "dev:android": "npm run generate && npx cap copy android && npx cap run android --target=Pixel_3_API_33  --external --no-build"
+    "dev:android": "npm run generate && npx cap copy android && npx cap run android --target=Pixel_3_API_33  --external --no-build",
+    "open:android": "npm run generate && npx cap copy android && npx cap open android"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.1",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/supabase": "^1.1.4",
     "nuxt": "^3.8.1",
     "sass": "^1.69.5",
     "vue": "^3.3.8",

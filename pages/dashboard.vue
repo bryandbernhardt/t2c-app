@@ -1,14 +1,20 @@
 <template>
-  <div class="dashboard-page">
-    <h2>Gênero Vendido</h2>
-    <ChartsPieChart :chartOptions="PieChartOptions" :series="PieChartSeries" />
-    <h2>Lucro Anual {{ getYear }}</h2>
-    <ChartsLineChart :chartOptions="LineChartOptions" :series="LineChartSeries" />
+  <div>
+    <div v-if="!loading" class="dashboard-page">
+      <h2>Gênero Vendido</h2>
+      <ChartsPieChart :chartOptions="PieChartOptions" :series="PieChartSeries" />
+      <h2>Lucro Anual {{ getYear }}</h2>
+      <ChartsLineChart :chartOptions="LineChartOptions" :series="LineChartSeries" />
+      <BaseMenu />
+    </div>
+    <SpinnerLoading v-else />
     <BaseMenu />
   </div>
 </template>
 
 <script>
+import { customerService } from '@/services/customer.service';
+
 export default {
   computed: {
     getYear() {
@@ -19,29 +25,21 @@ export default {
 
   data() {
     return {
-      BarChartOptions: {
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-        },
-      },
-      BarChartSeries: [
-        {
-          name: "masculino",
-          data: [30, 40, 35, 50, 49, 60, 70, 91],
-        },
-        {
-          name: "feminino",
-          data: [22, 69, 40, 67, 40, 55, 92, 123],
-        },
-      ],
+      loading: true,
       PieChartOptions: {
-        labels: ["Auto-ajuda", "Técnico", "Romance", "Ficção", "Didático"],
+        labels: [],
+        dataLabels: {
+          formatter(val, opts) {
+            const name = opts.w.globals.labels[opts.seriesIndex]
+            return [name, val.toFixed(1) + '%']
+          }
+        },
         colors: ["#18141D", "#18141D", "#18141D", "#18141D", "#18141D"],
         legend: {
           show: false
         },
       },
-      PieChartSeries: [15, 15, 20, 40, 10],
+      PieChartSeries: [],
       LineChartOptions: {
         chart: {
           zoom: {
@@ -80,6 +78,34 @@ export default {
         data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
       }],
     }
+  },
+
+  mounted() {
+    this.getGenres()
+  },
+
+  methods: {
+    async getGenres() {
+      this.loading = true;
+      const customers = await customerService.getAll();
+      const genres = [];
+
+
+
+      customers.forEach(customer => {
+        customer.books.forEach(book => {
+          genres.push({ genero: book.genero, count: 0 });
+          genres.find(genre => genre.genero === book.genero).count++;
+        })
+      });
+
+      genres.filter((genre, i) => genres.indexOf(genre) === i);
+
+      this.PieChartOptions.labels = genres.map(genre => genre.genero);
+      this.PieChartSeries = genres.map(genre => genre.count);
+
+      this.loading = false;
+    },
   },
 }
 </script>

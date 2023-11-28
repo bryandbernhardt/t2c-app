@@ -11,15 +11,14 @@
         <th>Ações</th>
       </tr>
       <tr v-for="data in datas">
-        <td>{{ data.id }}</td>
-        <td>{{ data.name }}</td>
         <td>{{ data.cpf }}</td>
+        <td>{{ data.nome }}</td>
         <td>{{ data.genero }}</td>
         <td>{{ data.idade }}</td>
         <td>{{ data.gasto_medio }}</td>
         <td class="options">
-          <button class="sells-btn" @click="openSellPage(data.vendas)">Vendas</button>
-          <button class="books-btn" @click="openBooksPage(data.livros)">Livros</button>
+          <button class="sells-btn" @click="openSellPage(data.sells[0], data.cpf)">Vendas</button>
+          <button class="books-btn" @click="openBooksPage(data.books, data.cpf)">Livros</button>
         </td>
       </tr>
     </table>
@@ -27,13 +26,16 @@
     <DadosCustomerSellsModal
       v-if="showSellsModal"
       :modalData="modalData"
+      :customerCpf="customerCpf"
       @close="showSellsModal = false"
     />
 
     <DadosCustomerBooksModal
       v-if="showBooksModal"
       :modalData="modalData"
+      :customerCpf="customerCpf"
       @close="showBooksModal = false"
+      @fetch-books="$emit('fetch-books')"
     />
   </div>
 </template>
@@ -56,18 +58,25 @@ export default {
     return {
       showSellsModal: false,
       showBooksModal: false,
-      modalData: {}
+      modalData: {},
+      customerCpf: '',
     }
   },
 
   methods: {
-    openSellPage(vendas) {
-      this.modalData = vendas;
-      this.showSellsModal = true;
+    openSellPage(vendas, customerCpf) {
+      if(vendas) {
+        this.modalData = vendas;
+        this.customerCpf = customerCpf;
+        this.showSellsModal = true;
+      }
     },
-    openBooksPage(livros) {
-      this.modalData = livros;
-      this.showBooksModal = true;
+    openBooksPage(livros, customerCpf) {
+      if(livros) {
+        this.modalData = livros;
+        this.customerCpf = customerCpf;
+        this.showBooksModal = true;
+      }
     }
   }
 }
@@ -86,6 +95,14 @@ export default {
     height: 100%;
     background-color: #4D4D4D;
     color: #fff;
+    display: flex;
+    flex-direction: column;
+
+    .show-books-create-btn {
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+    }
 
     .modal-header {
       display: flex;
